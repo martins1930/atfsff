@@ -7,7 +7,7 @@ atfsff = Another Tool For ScaFFolding .
 
 Project Description : 
 
-Tool to generate artifacts that support CRUD (create, read, update, delete) of a JPA entity. 
+* Tool to generate artifacts that support CRUD (create, read, update, delete) of a JPA entity. 
 Yes! another invention of the wheel you can find here!
 
 
