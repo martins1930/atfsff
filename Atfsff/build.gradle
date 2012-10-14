@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+String spring_version = "3.1.2.RELEASE@jar" ; 
+
+repositories {
+    mavenCentral()
+}
+
+List spring = ["org.springframework:spring-context:"+spring_version,
+		"org.springframework:spring-beans:"+spring_version,
+		"org.springframework:spring-core:"+spring_version,
+		"org.springframework:spring-expression:"+spring_version,
+		"org.springframework:spring-jdbc:"+spring_version,
+		"org.springframework:spring-web:"+spring_version,
+		"org.springframework:spring-webmvc:"+spring_version,
+		"org.springframework:spring-asm:"+spring_version]
+
+
+
+dependencies {
+    compile spring 
+
+}
+
+
+httpPort = 8091
+stopPort = 9451
+stopKey = 'foo'
+jettyRun.scanIntervalSeconds=1
+
+/* ------------------- END CONFIGURATIONS ---------------------*/
+
+
+
+
+

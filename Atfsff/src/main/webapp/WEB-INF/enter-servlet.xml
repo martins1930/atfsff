@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"       
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <mvc:resources mapping="/estatico/**"
+                   location="/estatico/" />
+               
+
+    <mvc:annotation-driven/>
+    
+
+    <!-- para que escanee los controladores 
+    (escanea todos los beans de spring sin necesidad de declararlos en este archivo) 
+    En este proyecto, todo lo que este en home.spring y tenga la anotación Controller es un controlador-->
+    <context:component-scan base-package="uy.des.atfsff.controller" />
+
+   
+
+
+    
+    <!-- se decalra el lugar en donde se toman las vistas. si un controlador hace referencia a una vista 
+    "holanombre" entonces tiene que existir una página "/WEB-INF/vistas/holanombre.jsp" para que tome la vista.
+    -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/vistas/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+              
+
+</beans>
