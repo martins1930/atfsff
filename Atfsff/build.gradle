@@ -8,6 +8,8 @@ repositories {
     mavenCentral()
 }
 
+//  "org.springframework:spring-oxm:"+spring_version,
+
 List spring = ["org.springframework:spring-context:"+spring_version,
 		"org.springframework:spring-beans:"+spring_version,
 		"org.springframework:spring-core:"+spring_version,
@@ -15,13 +17,26 @@ List spring = ["org.springframework:spring-context:"+spring_version,
 		"org.springframework:spring-jdbc:"+spring_version,
 		"org.springframework:spring-web:"+spring_version,
 		"org.springframework:spring-webmvc:"+spring_version,
-		"org.springframework:spring-asm:"+spring_version]
+		"org.springframework:spring-asm:"+spring_version] 
 
+List validation_lib = [
+    "org.hibernate:hibernate-validator:4.3.0.Final@jar", 
+    "javax.validation:validation-api:1.0.0.GA@jar"]
+
+List log_lib = [
+    "org.jboss.logging:jboss-logging:3.1.2.GA@jar", 
+    "org.slf4j:slf4j-api:1.6.6@jar",
+    "org.slf4j:slf4j-jdk14:1.6.6@jar",
+    "org.slf4j:log4j-over-slf4j:1.6.6@jar",
+    "org.slf4j:jcl-over-slf4j:1.6.6@jar",
+    "log4j:log4j:1.2.17@jar"]
 
 
 dependencies {
     compile spring 
-
+    compile "org.codehaus.jackson:jackson-jaxrs:1.9.9"  //lib jackson for JSON
+    compile validation_lib
+    compile log_lib
 }
 
 

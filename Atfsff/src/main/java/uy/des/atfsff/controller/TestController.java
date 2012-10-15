@@ -12,7 +12,7 @@ public class TestController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody  String prueba(){
-		return "HOLA SPRING MVC!! DIRECCION ARCHIVOddd!!!!" ;	 
+		return "HOLA SPRING MVC!! DIRECCION ARCHIVOGGGG--!!!!" ;	 
 	}
 
 	@RequestMapping(value = "/list2", method = RequestMethod.GET)

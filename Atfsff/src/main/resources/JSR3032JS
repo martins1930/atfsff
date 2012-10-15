@@ -1,0 +1,43 @@
+@NotEmpty
+private String nombre;
+
+@Range(min = 1, max = 150)
+private Integer edad ;
+
+
+
+JSR-3032JS
+validator js:
+
+field_list = ['nombre','edad'] ; 
+
+function validate(dataJSON){
+  var errors = "" ;
+  if ( dataJSON['nombre'] is undef || "" || null ){
+      errors += "error the field 'nombre' is empty" ;
+  }
+
+}
+
+(
+reducir a siguientes anotaciones:
+---
+javax.validation.constraints.DecimalMax
+javax.validation.constraints.DecimalMin
+javax.validation.constraints.Digits
+javax.validation.constraints.Future
+javax.validation.constraints.Max
+javax.validation.constraints.Min
+javax.validation.constraints.NotNull
+javax.validation.constraints.Null
+javax.validation.constraints.Past
+javax.validation.constraints.Pattern
+javax.validation.constraints.Size
+---
+hibernate validator
+org.hibernate.validator.constraints.Email
+org.hibernate.validator.constraints.Length
+org.hibernate.validator.constraints.NotBlank
+org.hibernate.validator.constraints.NotEmpty
+org.hibernate.validator.constraints.Range
+)
