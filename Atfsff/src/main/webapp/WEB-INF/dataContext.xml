@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"       
+       xmlns:jee="http://www.springframework.org/schema/jee"       
+       xmlns:aop="http://www.springframework.org/schema/aop"     
+       xmlns:tx="http://www.springframework.org/schema/tx"       
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd
+            http://www.springframework.org/schema/jee 
+            http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+            http://www.springframework.org/schema/aop 
+            http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+           
+
+
+    
+
+    <jee:jndi-lookup id="dsApp" jndi-name="jdbc/Atfsff"/>
+    
+    
+    <!-- config transactions -->
+    <tx:annotation-driven />    
+ <!--M      
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" /> -->
+    
+    
+<!--V    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dsApp"/>
+    </bean>
+    -->
+
+
+
+    
+    <!-- jpa -->
+   <!--M <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dsApp"/>      
+        <property name="persistenceUnitName" value="Abm-PU"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="false" />
+            </bean>  
+        </property>
+    </bean>
+    
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="myEmf" />
+    </bean> -->
+    
+    
+
+    
+
+   <!-- beans mios -->    
+   <!-- TODO ver singletons, esta clase tiene que ser singleton o no? ver de cerrar recursos, ver destroy-method --> 
+   <!--M
+   <bean id="persistManager" class="uy.gub.fnr.abm.tx.PersistManager">
+   </bean>
+   
+   <bean id="cfconfigApp" class="uy.gub.fnr.abm.conf.ConfigApp">
+       <constructor-arg name="packageControllerEnt">
+            <list>
+                <value>uy.gub.fnr.abm.mvc.impl</value>
+            </list>
+       </constructor-arg>
+       
+
+       <constructor-arg name="packageControllerSQL">
+            <list>
+                <value>uy.gub.fnr.abm.mvc.impl.sql</value>
+            </list>           
+       </constructor-arg>
+       
+       <constructor-arg name="tableDb">
+            <list>
+                <value>public.campogrande</value>
+                <value>public.ft_tramite_pet</value>
+                <value>public.huge</value>
+                <value>public.varias_col</value>
+            </list>           
+       </constructor-arg>
+       
+       <constructor-arg name="linkReport" value="http://localhost:8080/Abm/estatico/rep/" />
+       
+   </bean>
+
+    
+   <bean id="bootstrapAbm" class="uy.gub.fnr.abm.util.BootstrapAbm" init-method="init_boot" >
+       
+       <property name="ds" ref="dsApp" />
+       
+       <property name="cfg" ref="cfconfigApp" />
+
+   </bean>  --> 
+    
+    <context:component-scan base-package="uy.des.atfsff.test" />
+
+</beans>

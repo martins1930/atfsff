@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import uy.des.atfsff.test.Contacto;
+import uy.des.atfsff.test.DbConnTest;
 
 /**
  *
@@ -28,10 +29,12 @@ import uy.des.atfsff.test.Contacto;
 @RequestMapping(value = "/contact")
 public class ContactoController {
     
+    @Autowired
+    private DbConnTest testDB;
 
     @Autowired
     private Validator validator;
-
+    
     private static final Logger LOG = Logger.getLogger(ContactoController.class.getName());
     
     @RequestMapping(value = "/page", method = RequestMethod.GET)
@@ -51,7 +54,7 @@ public class ContactoController {
     public @ResponseBody String add(@RequestBody Contacto contacto) {
         System.out.println("add init jackson");
         LOG.log(Level.INFO, "{0}",contacto);
-        return contacto.getNombre();
+        return contacto.getNombre()+"---dbTest: "+testDB.echoDb();
     }    
     
     @RequestMapping(value = "/addValid",  method=RequestMethod.POST)

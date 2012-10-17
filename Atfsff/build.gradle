@@ -13,11 +13,18 @@ repositories {
 List spring = ["org.springframework:spring-context:"+spring_version,
 		"org.springframework:spring-beans:"+spring_version,
 		"org.springframework:spring-core:"+spring_version,
+		"org.springframework:spring-aop:"+spring_version,
 		"org.springframework:spring-expression:"+spring_version,
 		"org.springframework:spring-jdbc:"+spring_version,
+		"org.springframework:spring-tx:"+spring_version,
 		"org.springframework:spring-web:"+spring_version,
 		"org.springframework:spring-webmvc:"+spring_version,
 		"org.springframework:spring-asm:"+spring_version] 
+
+List spring_aop = [
+    "aopalliance:aopalliance:1.0@jar",
+    "cglib:cglib-nodep:2.2.2@jar"
+]
 
 List validation_lib = [
     "org.hibernate:hibernate-validator:4.3.0.Final@jar", 
@@ -33,10 +40,12 @@ List log_lib = [
 
 
 dependencies {
+    compile spring_aop
     compile spring 
     compile "org.codehaus.jackson:jackson-jaxrs:1.9.9"  //lib jackson for JSON
     compile validation_lib
     compile log_lib
+    compile "postgresql:postgresql:9.1-901.jdbc4"
 }
 
 
@@ -46,8 +55,4 @@ stopKey = 'foo'
 jettyRun.scanIntervalSeconds=1
 
 /* ------------------- END CONFIGURATIONS ---------------------*/
-
-
-
-
 
