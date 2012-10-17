@@ -10,12 +10,15 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author martin
  */
 @Component
+@Transactional(readOnly=true)
 public class DbConnTest {
     
     @Resource(name="dsApp")
@@ -26,7 +29,10 @@ public class DbConnTest {
     }
     
     public String echoDb(){ 
-        jdbcTemplate = new JdbcTemplate(dsTest);
+        if (jdbcTemplate==null) {
+            jdbcTemplate = new JdbcTemplate(dsTest);    
+        }
+        
         
         List<Posible> posible  = jdbcTemplate.query("select id, nombre from posible", new BeanPropertyRowMapper<Posible>(Posible.class)) ;
         
@@ -35,5 +41,18 @@ public class DbConnTest {
         return primero.toString()+"__total:"+posible.size();
     }
     
+    @Transactional(propagation=Propagation.REQUIRED)
+    public String updDb(Posible cupd){
+        if (jdbcTemplate==null) {
+            jdbcTemplate = new JdbcTemplate(dsTest);    
+        }
+        
+        String sql = "UPDATE posible set nombre = ? where id = ?"; 
+                
+        jdbcTemplate.update(sql, new Object[] { cupd.getNombre(),
+                cupd.getId()
+        });                
+        return "update succ" ;
+    }
     
 }

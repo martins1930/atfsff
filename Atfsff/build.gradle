@@ -45,7 +45,7 @@ dependencies {
     compile "org.codehaus.jackson:jackson-jaxrs:1.9.9"  //lib jackson for JSON
     compile validation_lib
     compile log_lib
-    compile "postgresql:postgresql:9.1-901.jdbc4"
+    runtime "postgresql:postgresql:9.1-901.jdbc4"
 }
 
 

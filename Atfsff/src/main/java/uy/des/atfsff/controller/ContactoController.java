@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import uy.des.atfsff.test.Contacto;
 import uy.des.atfsff.test.DbConnTest;
+import uy.des.atfsff.test.Posible;
 
 /**
  *
@@ -78,6 +79,10 @@ public class ContactoController {
             
 
         }
+        Posible p = new Posible();
+        p.setId(23);
+        p.setNombre("hola"+System.currentTimeMillis());
+        testDB.updDb(p);
         return sb.toString();
     }    
     

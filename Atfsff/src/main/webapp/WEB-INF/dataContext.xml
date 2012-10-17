@@ -26,17 +26,27 @@
     
     <!-- config transactions -->
     <tx:annotation-driven />    
+    
+    <!-- TRANSACTION MANAGER ................................... -->
+        <!-- transaction for non-JavaEE -->
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dsApp"/>
+        </bean> 
+        <!--
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="entityManagerFactory" ref="myEmf" />
+        </bean>  -->       
+        
+        <!-- .................................. -->
+        <!-- transaction for JavaEE container -->
+        <!--
+            <tx:jta-transaction-manager/>     
+        -->
+
+        
  <!--M      
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" /> -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" /> -->                        
     
-    
-<!--V    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dsApp"/>
-    </bean>
-    -->
-
-
-
     
     <!-- jpa -->
    <!--M <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -48,11 +58,7 @@
             </bean>  
         </property>
     </bean>
-    
-
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="myEmf" />
-    </bean> -->
+    -->
     
     
 
