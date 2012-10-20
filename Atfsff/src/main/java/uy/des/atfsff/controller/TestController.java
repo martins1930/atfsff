@@ -19,7 +19,7 @@ public class TestController {
 	public @ResponseBody  String prueba2(){
 		return "HOLA SPRING MVC!! DIRECCION ARCHIVO22ssss!!!!" ;	
 	}
-
-
+        
+        
 }
 

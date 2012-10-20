@@ -3,6 +3,7 @@ apply plugin: 'war'
 apply plugin: 'jetty'
 
 String spring_version = "3.1.2.RELEASE@jar" ; 
+String spring_sec_version = "3.1.2.RELEASE@jar" ; 
 
 repositories {
     mavenCentral()
@@ -20,6 +21,11 @@ List spring = ["org.springframework:spring-context:"+spring_version,
 		"org.springframework:spring-web:"+spring_version,
 		"org.springframework:spring-webmvc:"+spring_version,
 		"org.springframework:spring-asm:"+spring_version] 
+
+List spring_security = ["org.springframework.security:spring-security-core:"+spring_sec_version,
+    "org.springframework.security:spring-security-config:"+spring_sec_version,
+    "org.springframework.security:spring-security-web:"+spring_sec_version
+]
 
 List spring_aop = [
     "aopalliance:aopalliance:1.0@jar",
@@ -42,17 +48,29 @@ List log_lib = [
 dependencies {
     compile spring_aop
     compile spring 
+    compile spring_security
     compile "org.codehaus.jackson:jackson-jaxrs:1.9.9"  //lib jackson for JSON
     compile validation_lib
     compile log_lib
-    runtime "postgresql:postgresql:9.1-901.jdbc4"
+    runtime "postgresql:postgresql:9.1-901.jdbc4@jar"
+    compile "rhino:js:1.7R2@jar"
 }
 
 
+/* --------------- WEB SERVER ---------------------------------*/
 httpPort = 8091
 stopPort = 9451
 stopKey = 'foo'
 jettyRun.scanIntervalSeconds=1
+
+/*
+[jettyRun, jettyRunWar]*.configure {
+    def httpsConnector = jettyRun.class.classLoader.loadClass('org.mortbay.jetty.security.SslSocketConnector').newInstance()    
+    httpsConnector.port = 8443
+    httpsConnector.keystore = "$rootDir/basura/keystore"
+    httpsConnector.keyPassword = 'abcd1234'    
+    connectors  = [httpsConnector]
+} */
 
 /* ------------------- END CONFIGURATIONS ---------------------*/
 

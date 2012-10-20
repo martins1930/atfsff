@@ -4,6 +4,7 @@
  */
 package uy.des.atfsff.controller;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,26 +45,26 @@ public class ContactoController {
         return "contacto" ;
     }
 
-    @RequestMapping(value = "/list",  method=RequestMethod.GET)
-    public @ResponseBody List<Contacto> list() {
+    @RequestMapping(method=RequestMethod.GET)
+    public @ResponseBody List<Contacto> list(Integer offset) {
         LinkedList<Contacto> ret = new LinkedList<>();
-        ret.add(new Contacto("martin22t", new Date(), "mensaje 1", 25));
+        ret.add(new Contacto("martin22t", new Date(), "mensaje 1..offset "+offset, 25));
         ret.add(new Contacto("martin22", new Date(), "mensaje 2", 26));
         return ret;
     }
     
-    @RequestMapping(value = "/add",  method=RequestMethod.POST)
-    public @ResponseBody String add(@RequestBody Contacto contacto) {
+    @RequestMapping(method=RequestMethod.POST)
+    public @ResponseBody String add(@RequestBody Contacto contacto, Principal p) {
         System.out.println("add init jackson");
         LOG.log(Level.INFO, "{0}",contacto);
-        return contacto.getNombre()+"---dbTest: "+testDB.echoDb();
+        return contacto.getNombre()+"---dbTest: "+testDB.echoDb()+" -"+p.getName();
     }    
     
-    @RequestMapping(value = "/addValid",  method=RequestMethod.POST)
-    public @ResponseBody String addValid(@RequestBody Contacto contacto) {
+    @RequestMapping(value="{nombre}", method=RequestMethod.PUT)
+    public @ResponseBody String addValid(@PathVariable String nombre, @RequestBody Contacto contacto) {
         StringBuilder sb = new StringBuilder();
         
-        System.out.println("addValid init jackson");
+        System.out.println("addValid init jackson "+nombre);
         System.out.println(""+contacto);
         Set<ConstraintViolation<Contacto>> validateC = validator.validate(contacto);
         for (ConstraintViolation<Contacto> constraintViolation : validateC) {
