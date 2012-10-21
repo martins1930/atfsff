@@ -22,29 +22,12 @@
            
 
 
-    
-
-    <jee:jndi-lookup id="dsApp" jndi-name="jdbc/Atfsff"/>
-    
-    
+       
     <!-- config transactions -->
     <tx:annotation-driven />    
     
-    <!-- TRANSACTION MANAGER ................................... -->
-        <!-- transaction for non-JavaEE -->
-        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-            <property name="dataSource" ref="dsApp"/>
-        </bean> 
-        <!--
-        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-            <property name="entityManagerFactory" ref="myEmf" />
-        </bean>  -->       
+
         
-        <!-- .................................. -->
-        <!-- transaction for JavaEE container -->
-        <!--
-            <tx:jta-transaction-manager/>     
-        -->
 
         
  <!--M      
@@ -122,7 +105,8 @@
         </security:authentication-provider>
     </security:authentication-manager>    
     
-    <security:http auto-config="true" use-expressions="true" disable-url-rewriting="true" create-session='never'>
+    <!-- for rest add create-session='never' in http element -->
+    <security:http auto-config="true" use-expressions="true" disable-url-rewriting="true" >
         <!-- config for SSL -->
         <!-- <security:port-mappings>
             <security:port-mapping http="8888" https="8181"/>
@@ -141,6 +125,21 @@
     </security:http>    
     
     <security:global-method-security secured-annotations="enabled" />
+    
+    
+    <beans profile="web">
+        <jee:jndi-lookup id="dsApp" jndi-name="jdbc/Atfsff"/>
+        <!-- transaction for non-JavaEE -->        
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dsApp"/>
+        </bean>         
+    </beans>
+    
+    <beans profile="jee">
+        <jee:jndi-lookup id="dsApp" jndi-name="Atfsff"/>
+        <!-- transaction for JavaEE container -->
+        <tx:jta-transaction-manager/>        
+    </beans>    
 
 
 </beans>

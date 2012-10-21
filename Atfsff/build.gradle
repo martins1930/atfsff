@@ -2,6 +2,8 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'jetty'
 
+
+
 String spring_version = "3.1.2.RELEASE@jar" ; 
 String spring_sec_version = "3.1.2.RELEASE@jar" ; 
 
@@ -62,6 +64,12 @@ httpPort = 8091
 stopPort = 9451
 stopKey = 'foo'
 jettyRun.scanIntervalSeconds=1
+
+jettyRun {
+    doFirst  {
+        System.properties['spring.profiles.active'] = "web" ;
+    }
+}
 
 /*
 [jettyRun, jettyRunWar]*.configure {
