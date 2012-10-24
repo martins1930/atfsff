@@ -90,7 +90,8 @@ public class ContactoController {
         //JPA
         p.setId(44);
         p.setNombre("holaJPA"+System.currentTimeMillis());
-        testDB.updDbJPA(p);
+        String desc_ = testDB.updDbJPA(p);
+        System.out.println("Hola___"+desc_);
         return sb.toString();
     }    
     

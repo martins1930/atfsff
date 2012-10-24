@@ -1,0 +1,27 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uy.des.atfsff.controller;
+
+import javax.validation.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import uy.des.atfsff.test.DbConnTest;
+
+/**
+ *
+ * @author martin
+ */
+@Controller
+@RequestMapping(value = "/posible")
+public class PosibleController {
+    
+    @Autowired
+    private DbConnTest testDB;
+
+    @Autowired
+    private Validator validator;
+    
+}

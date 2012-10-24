@@ -4,10 +4,17 @@
  */
 package uy.des.atfsff.test;
 
+import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -71,8 +78,24 @@ public class DbConnTest {
     public String updDbJPA(Posible cupd){
         PosibleEnt pObt = em.find(PosibleEnt.class, cupd.getId());
         pObt.setNombre(cupd.getNombre());
-//        em.merge(pObt); 
-        return "update succ" ;
+        
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<PosibleEnt> cquery = criteriaBuilder.createQuery(PosibleEnt.class);
+        // cquery.from
+        Root<PosibleEnt> rent = cquery.from(PosibleEnt.class);
+        
+        LinkedList<Predicate> ll = new LinkedList<>();
+
+        //build cond
+        ll.add( criteriaBuilder.isNotNull(rent.get("id")) );
+        ll.add( criteriaBuilder.like( rent.<String>get("nombre"), "hola%") );
+        
+        Predicate[] lpred = new Predicate[ll.size()];
+        
+        //cquery.where 
+        cquery.where(ll.toArray(lpred));
+        TypedQuery<PosibleEnt> result = em.createQuery(cquery);
+        return "update succ "+result.getResultList().size() ;
     }
     
 }
