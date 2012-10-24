@@ -1,0 +1,17 @@
+To deploy Atfsff in a JavaEE server do:
+
+1) in build.gradle comment the following line dependency:
+    compile hibernate
+
+
+2) 
+    a) in web.xml comment the data source jdbc/Atfsff definition.
+    b) in web.xml uncomment the persistence unit Atfsff-PU definition.
+
+
+3) 
+    a) in persistence.xml comment the PU for non-JavaEE
+    b) in persistence.xml uncomment the PU for JavaEE server
+    
+
+    

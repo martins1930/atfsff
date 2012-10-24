@@ -26,30 +26,9 @@
     <!-- config transactions -->
     <tx:annotation-driven />    
     
-
-        
-
-        
- <!--M      
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" /> -->                        
+    <context:component-scan base-package="uy.des.atfsff.test" />
+                  
     
-    
-    <!-- jpa -->
-   <!--M <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dsApp"/>      
-        <property name="persistenceUnitName" value="Abm-PU"/>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="showSql" value="false" />
-            </bean>  
-        </property>
-    </bean>
-    -->
-    
-    
-
-    
-
    <!-- beans mios -->    
    <!-- TODO ver singletons, esta clase tiene que ser singleton o no? ver de cerrar recursos, ver destroy-method --> 
    <!--M
@@ -92,8 +71,6 @@
 
    </bean>  --> 
     
-    <context:component-scan base-package="uy.des.atfsff.test" />
-    
     <!-- SECURITY ************************************************************************* -->
     
     <security:authentication-manager alias="authenticationManager">
@@ -130,15 +107,38 @@
     <beans profile="web">
         <jee:jndi-lookup id="dsApp" jndi-name="jdbc/Atfsff"/>
         <!-- transaction for non-JavaEE -->        
-        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
             <property name="dataSource" ref="dsApp"/>
-        </bean>         
+        </bean> -->       
+
+        <!-- this is for annotation persistencecontext-->       
+        <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />    
+
+        <!-- jpa -->
+        <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+            <property name="dataSource" ref="dsApp"/>      
+            <property name="persistenceUnitName" value="Atfsff-PU"/>
+            <property name="jpaVendorAdapter">
+                <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                    <property name="showSql" value="false" />
+                </bean>  
+            </property>
+        </bean>
+                
+        <!-- jpa and jdbc transaction for non-JavaEE -->
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="entityManagerFactory" ref="myEmf" />
+        </bean>          
+                
     </beans>
     
     <beans profile="jee">
+        
         <jee:jndi-lookup id="dsApp" jndi-name="Atfsff"/>
-        <!-- transaction for JavaEE container -->
+
         <tx:jta-transaction-manager/>        
+
+        <jee:jndi-lookup id="emf" jndi-name="persistence/Atfsff-PU" />
     </beans>    
 
 

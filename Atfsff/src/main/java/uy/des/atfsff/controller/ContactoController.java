@@ -81,10 +81,16 @@ public class ContactoController {
             
 
         }
+        // JDBC
         Posible p = new Posible();
         p.setId(23);
-        p.setNombre("hola"+System.currentTimeMillis());
+        p.setNombre("holaJDBC"+System.currentTimeMillis());
         testDB.updDb(p);
+        
+        //JPA
+        p.setId(44);
+        p.setNombre("holaJPA"+System.currentTimeMillis());
+        testDB.updDbJPA(p);
         return sb.toString();
     }    
     

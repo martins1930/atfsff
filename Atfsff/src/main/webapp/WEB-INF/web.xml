@@ -23,13 +23,19 @@
     </listener> 
 
 
-    <!-- data source  --> 
+    <!-- data source  (comment this for JavaEE server) --> 
     <resource-ref>
         <description>DB Connection</description>
         <res-ref-name>jdbc/Atfsff</res-ref-name> 
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
-    </resource-ref> 
+    </resource-ref>
+    
+    <!-- uncomment persistence-unit-ref for deploy in JavaEE server -->
+    <!-- <persistence-unit-ref> 
+        <persistence-unit-ref-name>persistence/Atfsff-PU</persistence-unit-ref-name> 
+        <persistence-unit-name>Atfsff-PU</persistence-unit-name> 
+    </persistence-unit-ref> -->
 	
     <!--  MVC -->
     <servlet>

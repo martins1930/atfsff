@@ -6,6 +6,8 @@ package uy.des.atfsff.test;
 
 import java.util.List;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +15,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import uy.des.atfsff.test.ent.PosibleEnt;
 
 /**
  *
@@ -22,9 +25,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly=true)
 @Secured("ROLE_SPITTER")
 public class DbConnTest {
+    // ver de hacer esto con una interface!!
     
     @Resource(name="dsApp")
     private DataSource dsTest ;
+
+//    @PersistenceContext(unitName="Atfsff-PU")    
+    @PersistenceContext
+    private EntityManager em ;
+    
     private JdbcTemplate jdbcTemplate;
 
     public DbConnTest() {
@@ -55,6 +64,14 @@ public class DbConnTest {
         jdbcTemplate.update(sql, new Object[] { cupd.getNombre(),
                 cupd.getId()
         });                
+        return "update succ" ;
+    }
+    
+    @Transactional(propagation=Propagation.REQUIRED)
+    public String updDbJPA(Posible cupd){
+        PosibleEnt pObt = em.find(PosibleEnt.class, cupd.getId());
+        pObt.setNombre(cupd.getNombre());
+//        em.merge(pObt); 
         return "update succ" ;
     }
     

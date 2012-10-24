@@ -6,6 +6,7 @@ apply plugin: 'jetty'
 
 String spring_version = "3.1.2.RELEASE@jar" ; 
 String spring_sec_version = "3.1.2.RELEASE@jar" ; 
+String hibernate_version = "4.1.7.Final@jar" ; 
 
 repositories {
     mavenCentral()
@@ -22,6 +23,7 @@ List spring = ["org.springframework:spring-context:"+spring_version,
 		"org.springframework:spring-tx:"+spring_version,
 		"org.springframework:spring-web:"+spring_version,
 		"org.springframework:spring-webmvc:"+spring_version,
+		"org.springframework:spring-orm:"+spring_version,
 		"org.springframework:spring-asm:"+spring_version] 
 
 List spring_security = ["org.springframework.security:spring-security-core:"+spring_sec_version,
@@ -46,11 +48,23 @@ List log_lib = [
     "org.slf4j:jcl-over-slf4j:1.6.6@jar",
     "log4j:log4j:1.2.17@jar"]
 
+List hibernate_api = ["org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final@jar"] 
+
+List hibernate = [
+    "org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:1.0.1.Final@jar",
+    "org.hibernate.common:hibernate-commons-annotations:4.0.1.Final@jar",
+    "org.javassist:javassist:3.16.1-GA",
+    "org.hibernate:hibernate-entitymanager:"+hibernate_version,
+    "org.hibernate:hibernate-core:"+hibernate_version
+]
+
 
 dependencies {
-    compile spring_aop
+    compile hibernate_api
+    compile hibernate
     compile spring 
     compile spring_security
+    compile spring_aop
     compile "org.codehaus.jackson:jackson-jaxrs:1.9.9"  //lib jackson for JSON
     compile validation_lib
     compile log_lib
