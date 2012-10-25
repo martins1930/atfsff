@@ -4,8 +4,6 @@
  */
 package uy.des.atfsff.persist;
 
-import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
