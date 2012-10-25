@@ -22,6 +22,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import uy.des.atfsff.metadata.ent.MEntities;
+import uy.des.atfsff.metadata.ent.MField;
 import uy.des.atfsff.test.ent.PosibleEnt;
 
 /**
@@ -95,6 +97,30 @@ public class DbConnTest {
         //cquery.where 
         cquery.where(ll.toArray(lpred));
         TypedQuery<PosibleEnt> result = em.createQuery(cquery);
+        
+        MEntities mEntities = new MEntities();
+        mEntities.setClassName("uy.des.atfsff.test.ent.PosibleEnt");
+        mEntities.setDefault_order_by("nombre");
+        mEntities.setIs_view("N");
+        LinkedList<MField> asocEnt = new LinkedList<>();
+        MField mField1 = new MField();
+        MField mField2 = new MField();
+        asocEnt.add(mField2);        
+        asocEnt.add(mField1);
+        mEntities.setFields(asocEnt);
+        
+        mField1.setField_name("id");
+        mField1.setField_type("Integer");
+        mField1.setLarge("N");
+        
+        mField2.setField_name("nombre");
+        mField2.setField_type("String");
+        mField2.setLarge("N");
+        
+        em.persist(mEntities);
+        
+        
+        
         return "update succ "+result.getResultList().size() ;
     }
     

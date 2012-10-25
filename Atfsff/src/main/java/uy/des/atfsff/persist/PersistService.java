@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.des.atfsff.test;
+package uy.des.atfsff.persist;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -16,6 +16,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ClassUtils;
+import uy.des.atfsff.common.Condition;
 
 /**
  *
@@ -40,7 +41,7 @@ public class PersistService<T extends Serializable> {
         Class<T> clazzT = getEntityClass();
         T ret = null ;
         try {
-            ret = clazzT.newInstance();
+            ret = clazzT.newInstance(); 
         } catch (InstantiationException ex) {
             log.log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
@@ -62,11 +63,11 @@ public class PersistService<T extends Serializable> {
         return query.getResultList();
     }    
     
-    public List<T> getAll(String condition, Integer startPos, Integer maxResult){
+    public List<T> getAll(List<Condition> condition, Integer startPos, Integer maxResult){
         Class<T> clazz = this.getEntityClass();        
         TypedQuery<T> query ;
         String nombreEntidad = ClassUtils.getShortName(clazz) ;        
-        if (condition!=null && !condition.equals("")) {
+        if (condition!=null) {
             query = em.createQuery("select t from "+nombreEntidad+" t where "+condition, clazz)
                       .setFirstResult(startPos)
                       .setMaxResults(maxResult);

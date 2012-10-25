@@ -3,8 +3,16 @@
   <!-- for non-JavaEE -->
   <persistence-unit name="Atfsff-PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <!-- admin classes -->
+    <class>uy.des.atfsff.metadata.ent.MEntities</class>
+    <class>uy.des.atfsff.metadata.ent.MField</class>
+    
+    <!-- domain classes -->
     <class>uy.des.atfsff.test.ent.PosibleEnt</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>    
   </persistence-unit>
   
   <!-- for glassfish (JavaEE server) -->

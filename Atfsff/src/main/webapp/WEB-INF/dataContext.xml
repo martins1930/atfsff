@@ -26,42 +26,21 @@
     <!-- config transactions -->
     <tx:annotation-driven />    
     
+    <!-- sacar el primer component-scan -->
     <context:component-scan base-package="uy.des.atfsff.test" />
+    <context:component-scan base-package="uy.des.atfsff.persist" />
+    
+    <!-- config app default -->
+    <bean id="cfconfigApp" class="uy.des.atfsff.conf.ConfigApp">
+        <constructor-arg name="pageSize" value="30" />
+    </bean>
+    
                   
     
    <!-- beans mios -->    
    <!-- TODO ver singletons, esta clase tiene que ser singleton o no? ver de cerrar recursos, ver destroy-method --> 
    <!--M
-   <bean id="persistManager" class="uy.gub.fnr.abm.tx.PersistManager">
-   </bean>
    
-   <bean id="cfconfigApp" class="uy.gub.fnr.abm.conf.ConfigApp">
-       <constructor-arg name="packageControllerEnt">
-            <list>
-                <value>uy.gub.fnr.abm.mvc.impl</value>
-            </list>
-       </constructor-arg>
-       
-
-       <constructor-arg name="packageControllerSQL">
-            <list>
-                <value>uy.gub.fnr.abm.mvc.impl.sql</value>
-            </list>           
-       </constructor-arg>
-       
-       <constructor-arg name="tableDb">
-            <list>
-                <value>public.campogrande</value>
-                <value>public.ft_tramite_pet</value>
-                <value>public.huge</value>
-                <value>public.varias_col</value>
-            </list>           
-       </constructor-arg>
-       
-       <constructor-arg name="linkReport" value="http://localhost:8080/Abm/estatico/rep/" />
-       
-   </bean>
-
     
    <bean id="bootstrapAbm" class="uy.gub.fnr.abm.util.BootstrapAbm" init-method="init_boot" >
        

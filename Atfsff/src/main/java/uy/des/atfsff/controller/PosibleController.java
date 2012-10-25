@@ -8,7 +8,10 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import uy.des.atfsff.conf.ConfigApp;
+import uy.des.atfsff.persist.PersistService;
 import uy.des.atfsff.test.DbConnTest;
+import uy.des.atfsff.test.ent.PosibleEnt;
 
 /**
  *
@@ -19,9 +22,14 @@ import uy.des.atfsff.test.DbConnTest;
 public class PosibleController {
     
     @Autowired
-    private DbConnTest testDB;
+    private PersistService<PosibleEnt> persistS;
 
     @Autowired
     private Validator validator;
+    
+    @Autowired
+    private ConfigApp cfg; 
+    
+    
     
 }
