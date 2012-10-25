@@ -10,6 +10,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +39,7 @@ public class MEntities implements Serializable{
     @Column(length=1, nullable=false)
     private String is_view;
     
-    @ElementCollection
+    @ElementCollection(fetch=FetchType.EAGER)
     @CollectionTable(name = "mfield", joinColumns = @JoinColumn(name = "mentities_id"))
     @OrderColumn(name="f_order")
     private List<MField> fields;
@@ -86,7 +87,12 @@ public class MEntities implements Serializable{
         this.fields = fields;
     }
 
+    @Override
+    public String toString() {
+        return "MEntities{" + "id=" + id + ", className=" + className + ", default_order_by=" + default_order_by + ", is_view=" + is_view + ", fields=" + fields + '}';
+    }
 
 
+    
     
 }

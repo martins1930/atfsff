@@ -25,46 +25,28 @@ import uy.des.atfsff.common.Condition;
 @Component
 @Transactional(readOnly=true)
 @Secured("ROLE_SPITTER")
-public class PersistService<T extends Serializable> {
+public class PersistService {
     
     private static final Logger log = Logger.getLogger(PersistService.class.getName());
     
     @PersistenceContext
     private EntityManager em ;
     
-    //metodos para obtener la entidad
-    public Class<T> getEntityClass() {
-        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    }
-    
-    protected T getNewInstance(){
-        Class<T> clazzT = getEntityClass();
-        T ret = null ;
-        try {
-            ret = clazzT.newInstance(); 
-        } catch (InstantiationException ex) {
-            log.log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            log.log(Level.SEVERE, null, ex);
-        }
-        return ret ;
-    }    
     
     
-    public void save(T t){
+    public <T> void save(T t){
         log.log(Level.FINE, "Pesristed element: {0}", t);
         em.persist(t);
     }    
     
-    public List<T> getAll(){
-        Class<T> clazz = this.getEntityClass();
+    public <T> List<T> getAll(Class<T> clazz){
+        System.out.println("Clase obtenida "+clazz.getName());
         String nombreEntidad = ClassUtils.getShortName(clazz) ;
         TypedQuery<T> query = em.createQuery("select t from "+nombreEntidad+" t", clazz);
         return query.getResultList();
     }    
     
-    public List<T> getAll(List<Condition> condition, Integer startPos, Integer maxResult){
-        Class<T> clazz = this.getEntityClass();        
+    public <T> List<T> getAll(Class<T> clazz, List<Condition> condition, Integer startPos, Integer maxResult){   
         TypedQuery<T> query ;
         String nombreEntidad = ClassUtils.getShortName(clazz) ;        
         if (condition!=null) {

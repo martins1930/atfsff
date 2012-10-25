@@ -53,5 +53,12 @@ public class MField implements Serializable{
         this.large = large;
     }
 
+    @Override
+    public String toString() {
+        return "MField{" + "field_name=" + field_name + ", field_type=" + field_type + ", large=" + large + '}';
+    }
+    
+    
+
     
 }

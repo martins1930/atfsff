@@ -22,7 +22,7 @@ import uy.des.atfsff.test.ent.PosibleEnt;
 public class PosibleController {
     
     @Autowired
-    private PersistService<PosibleEnt> persistS;
+    private PersistService persistS;
 
     @Autowired
     private Validator validator;
