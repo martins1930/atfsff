@@ -40,7 +40,6 @@ public class MetadataController {
     @RequestMapping(method=RequestMethod.GET)
     public @ResponseBody List<MEntities> list(Integer offset) {
         List<MEntities> ret = persistS.getAll(MEntities.class);
-        System.out.println("lista obt: "+ret);
         return ret;
     }    
     
