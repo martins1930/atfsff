@@ -28,7 +28,7 @@ public class PersistService {
     private static final Logger log = Logger.getLogger(PersistService.class.getName());
     
     @PersistenceContext
-    private EntityManager em ;
+    private EntityManager em ; 
     
     
     
